@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UPCaToDecimalApp
 {
-    struct UPCa_Code
+    public struct UPCa_Code
     {
         public const string LEFT_GUARD = "▍ ▍";
         public const string RIGHT_GUARD = "▍ ▍";
@@ -44,6 +44,40 @@ namespace UPCaToDecimalApp
                 case "▍  ▍   ": return 8;
                 case "▍▍▍ ▍  ": return 9;
                 default: return -1; // Invalid group
+            }
+        }
+        public static string LeftHandToGroup(int num)
+        {
+            switch (num)
+            {
+                case 0 : return "   ▍▍ ▍";
+                case 1 : return "  ▍▍  ▍";
+                case 2 : return "  ▍  ▍▍";
+                case 3 : return " ▍▍▍▍ ▍";
+                case 4 : return " ▍   ▍▍";
+                case 5 : return " ▍▍   ▍";
+                case 6 : return " ▍ ▍▍▍▍";
+                case 7 : return " ▍▍▍ ▍▍";
+                case 8 : return " ▍▍ ▍▍▍";
+                case 9 : return "   ▍ ▍▍";
+                default: return ""; // Invalid num
+            }
+        }
+        public static string RightHandToGroup(int num)
+        {
+            switch (num)
+            {
+                case 0 : return "▍▍▍  ▍ ";
+                case 1 : return "▍▍  ▍▍ ";
+                case 2 : return "▍▍ ▍▍  ";
+                case 3 : return "▍    ▍ ";
+                case 4 : return "▍ ▍▍▍  ";
+                case 5 : return "▍  ▍▍▍ ";
+                case 6 : return "▍ ▍    ";
+                case 7 : return "▍   ▍  ";
+                case 8 : return "▍  ▍   ";
+                case 9 : return "▍▍▍ ▍  ";
+                default: return "";
             }
         }
         // For this assignment separating the numberSystem and moduloCheck groups is unecessary,

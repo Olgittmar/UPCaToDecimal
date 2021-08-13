@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UPCaToDecimalApp
 {
-    class HelperProgram
+    public class HelperProgram
     {
         // We assume left to right here, to support bidirectional reading check direction before this method is called.
         public static string Convert_UPC_A_To_Decimal_String(string code)

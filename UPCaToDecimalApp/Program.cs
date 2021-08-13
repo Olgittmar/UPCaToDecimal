@@ -5,7 +5,7 @@ using CommandLine;
 
 namespace UPCaToDecimalApp
 {
-    class Program
+    public class Program
     {
         public class CommandLineOptions
         {
@@ -30,7 +30,7 @@ namespace UPCaToDecimalApp
                 HelpText = "If true force results to be printed to console.")]
             public bool OutputToConsole { get; set; }
         }
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Parser.Default.ParseArguments<CommandLineOptions>(args)
                 .WithParsed(RunWithOptions)
