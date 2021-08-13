@@ -5,10 +5,11 @@ using System.Text;
 namespace UPCaToDecimalApp
 {
     class HelperProgram
-    {   
+    {
         // We assume left to right here, to support bidirectional reading check direction before this method is called.
         public static string Convert_UPC_A_To_Decimal_String(string code)
         {
+            // We are allowed to assume that the codes should be valid, but it's so easy to check so we might as well.
             if ( !code.StartsWith(UPCa_Code.LEFT_GUARD) ) {
                 // No left guard
                 return "[MissingLeftGuard]";
@@ -27,7 +28,7 @@ namespace UPCaToDecimalApp
                 // No right guard
                 return "[MissingRightGuard]";
             }
-
+            // Might not be the fastest and most memory efficient, but is easy to read and felt elegant.
             UPCa_Code _code = new();
             _code.SetLeftFromFullString(left);
             _code.SetRightFromFullString(right);

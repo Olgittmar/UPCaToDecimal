@@ -46,11 +46,14 @@ namespace UPCaToDecimalApp
                 default: return -1; // Invalid group
             }
         }
-
-        public int numberSystem { get; set; }
-        public int[] left { get; set; }
-        public int[] right { get; set; }
-        public int moduloCheck { get; set; }
+        // For this assignment separating the numberSystem and moduloCheck groups is unecessary,
+        // but this is how I would build it in case I want to expand functionality in the future.
+        public int numberSystem { get; private set; }
+        public int[] left { get; private set; }
+        public int[] right { get; private set; }
+        public int moduloCheck { get; private set; }
+        // Set left/right hand data from inputstring.
+        // These are the intended way of setting the above values.
         public void SetLeftFromFullString(string leftString)
         {
             numberSystem = LEFT_HAND(leftString.Substring(0, GROUP_LENGTH));
@@ -72,6 +75,7 @@ namespace UPCaToDecimalApp
                 right[i] = RIGHT_HAND(rightString.Substring(i*GROUP_LENGTH, GROUP_LENGTH));
             }
         }
+        // ToString-like helpers
         public string LeftToString()
         {
             string res = numberSystem.ToString() + ' ';
@@ -91,6 +95,7 @@ namespace UPCaToDecimalApp
             res += ' ' + moduloCheck.ToString();
             return res;
         }
+        // Override ToString so we can write UPCa_CodeInstance.ToString() and get the nicely formatted string we want out.
         public override string ToString()
         {
             return LeftToString() + ' ' + RightToString();
