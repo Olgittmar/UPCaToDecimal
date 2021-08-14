@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace UPCaToDecimalApp
 {
+    // Helper struct that moves a few static codes used to compile-time
+    // and takes care of formatting the codes for us.
     public struct UPCa_Code
     {
         public const string LEFT_GUARD = "▍ ▍";
@@ -12,9 +14,9 @@ namespace UPCaToDecimalApp
         public const int NUM_GROUPS_LEFT = 6;
         public const int NUM_GROUPS_RIGHT = 6;
         // Dictionaries cant be generated at compile-time, but switch statements are.
-        public static int LEFT_HAND(string group)
+        public static int LEFT_HAND(ReadOnlySpan<char> group)
         {
-            switch (group)
+            switch (group.ToString())
             {
                 case "   ▍▍ ▍": return 0;
                 case "  ▍▍  ▍": return 1;
@@ -29,9 +31,9 @@ namespace UPCaToDecimalApp
                 default: return -1; // Invalid group
             }
         }
-        public static int RIGHT_HAND(string group)
+        public static int RIGHT_HAND(ReadOnlySpan<char> group)
         {
-            switch (group)
+            switch (group.ToString())
             {
                 case "▍▍▍  ▍ ": return 0;
                 case "▍▍  ▍▍ ": return 1;
@@ -88,55 +90,39 @@ namespace UPCaToDecimalApp
         public int moduloCheck { get; private set; }
         // Set left/right hand data from inputstring.
         // These are the intended way of setting the above values.
-        public void SetLeftFromFullString(string leftString)
+        public void SetLeftFromCodeString(ReadOnlySpan<char> leftString)
         {
-            numberSystem = LEFT_HAND(leftString.Substring(0, GROUP_LENGTH));
-            if (left == null || left.Length != 6) {
-                left = new int[5];
+            numberSystem = LEFT_HAND(leftString.Slice(0, GROUP_LENGTH));
+            if (left == null || left.Length != NUM_GROUPS_LEFT - 1) {
+                left = new int[NUM_GROUPS_LEFT - 1];
             }
             for( int i = 1; i < NUM_GROUPS_LEFT; ++i) {
-                left[i-1] = LEFT_HAND( leftString.Substring(i*GROUP_LENGTH, GROUP_LENGTH) );
+                left[i-1] = LEFT_HAND(leftString.Slice(i*GROUP_LENGTH, GROUP_LENGTH) );
             }
         }
-        public void SetRightFromFullString(string rightString)
+        public void SetRightFromCodeString(ReadOnlySpan<char> rightString)
         {
-            moduloCheck = RIGHT_HAND(rightString.Substring(5 * GROUP_LENGTH, GROUP_LENGTH));
-            if(right == null || right.Length != 6) {
-                right = new int[5];
+            moduloCheck = RIGHT_HAND(rightString.Slice((NUM_GROUPS_RIGHT-1)*GROUP_LENGTH, GROUP_LENGTH));
+            if(right == null || right.Length != NUM_GROUPS_LEFT - 1) {
+                right = new int[NUM_GROUPS_RIGHT - 1];
             }
-            for (int i = 0; i < NUM_GROUPS_RIGHT - 1; ++i)
-            {
-                right[i] = RIGHT_HAND(rightString.Substring(i*GROUP_LENGTH, GROUP_LENGTH));
+            for (int i = 0; i < NUM_GROUPS_RIGHT - 1; ++i) {
+                right[i] = RIGHT_HAND(rightString.Slice(i*GROUP_LENGTH, GROUP_LENGTH));
             }
         }
         // ToString-like helpers
         public string LeftToString()
         {
-            string res = numberSystem.ToString() + ' ';
-            foreach (int i in left)
-            {
-                res += i.ToString();
-            }
-            return res;
+            return numberSystem.ToString() + " " + String.Join("", left);
         }
         public string RightToString()
         {
-            string res = "";
-            foreach (int i in right)
-            {
-                res += i.ToString();
-            }
-            res += ' ' + moduloCheck.ToString();
-            return res;
+            return String.Join("", right) + " " + moduloCheck.ToString();
         }
         // Override ToString so we can write UPCa_CodeInstance.ToString() and get the nicely formatted string we want out.
         public override string ToString()
         {
-            return LeftToString() + ' ' + RightToString();
-        }
-        public string AsStringWithGuards()
-        {
-            return LEFT_GUARD + ' ' + LeftToString() + ' ' + CENTER_GUARD + ' ' + RightToString() + ' ' + RIGHT_GUARD;
+            return LeftToString() + " " + RightToString();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using CommandLine;
 
 namespace UPCaToDecimalApp
@@ -47,17 +48,18 @@ namespace UPCaToDecimalApp
                 return;
             }
             // We've got an inputfile, we'll assume it's in valid format.
-            string results = "";
+            StringBuilder sb = new StringBuilder();
             using (StreamReader sr = File.OpenText(opts.InputFile))
             {
-                string line;
+                //! Slightly afraid I'm reading from something scary here...
+                ReadOnlySpan<char> line;
                 while((line = sr.ReadLine()) != null)
                 {
                     // append results of each line read to 'results'
-                    if (results.Length != 0) {
-                        results += "\r\n";
+                    if (sb.Length != 0) {
+                        sb.Append("\r\n");
                     }
-                    results += HelperProgram.Convert_UPC_A_To_Decimal_String( line );
+                    sb.Append( HelperProgram.Convert_UPC_A_To_Decimal_String( line ) );
                 }
             }
             // Do we have a file to which the results should be written?
@@ -67,14 +69,14 @@ namespace UPCaToDecimalApp
             {
                 using (StreamWriter sw = File.CreateText(opts.OutputFile))
                 {
-                    sw.Write(results);
+                    sw.Write(sb.ToString());
                 }
             }
             // If we aren't writing to a file, output to console instead.
             // If we are writing to file, we only write to console if explicitly asked to.
             if (opts.OutputToConsole || opts.OutputFile.Length == 0)
             {
-                foreach (string line in results.Split("\r\n"))
+                foreach (string line in sb.ToString().Split("\r\n"))
                 {
                     Console.WriteLine(line);
                 }
