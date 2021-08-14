@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31605.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPCaToDecimalApp", "UPCaToDecimalApp\UPCaToDecimalApp.csproj", "{72D6EE73-4B6D-4EBA-93FC-A5A08C481BDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UPCaToDecimalApp", "UPCaToDecimalApp\UPCaToDecimalApp.csproj", "{72D6EE73-4B6D-4EBA-93FC-A5A08C481BDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUPCaToDecimal", "TestUPCaToDecimal\TestUPCaToDecimal.csproj", "{AA784181-74DF-4B42-B6D6-3E828251B550}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestUPCaToDecimal", "TestUPCaToDecimal\TestUPCaToDecimal.csproj", "{AA784181-74DF-4B42-B6D6-3E828251B550}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

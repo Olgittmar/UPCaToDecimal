@@ -95,7 +95,7 @@ namespace TestUPCaToDecimal
         private static readonly string filter = "*.data";
         private static string[] testDataFiles;
         private static readonly UTF8Encoding utf8 = new UTF8Encoding(true, true);
-        private static readonly int numGenCases = 100;
+        private static readonly int numGenCases = 1000;
 
         // Randomly generated testData for TestUPCaToDecimal.
         public static IEnumerable RandGenUPCACodes

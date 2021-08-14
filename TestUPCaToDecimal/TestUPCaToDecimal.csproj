@@ -6,8 +6,12 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="coverlet.collector" Version="3.1.0">
@@ -27,7 +31,7 @@
   </ItemGroup>
 
   <Target Name="MakeOutputDir" AfterTargets="Build">
-    <MakeDir Directories="$(OutDir)TestData\OutData"/>
+    <MakeDir Directories="$(OutDir)TestData\OutData" />
   </Target>
   
 </Project>
