@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -20,4 +20,14 @@
     <ProjectReference Include="..\UPCaToDecimalApp\UPCaToDecimalApp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="$(ProjectDir)TestData\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="MakeOutputDir" AfterTargets="Build">
+    <MakeDir Directories="$(OutDir)TestData\OutData"/>
+  </Target>
+  
 </Project>

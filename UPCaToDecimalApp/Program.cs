@@ -76,8 +76,8 @@ namespace UPCaToDecimalApp
             // If we are writing to file, we only write to console if explicitly asked to.
             if (opts.OutputToConsole || opts.OutputFile.Length == 0)
             {
-                foreach (string line in sb.ToString().Split("\r\n"))
-                {
+                foreach (string line in sb.ToString().Split("\r\n")) {
+                    // The wierd split is for the possibility that Console uses a different LineBreak than we do.
                     Console.WriteLine(line);
                 }
             }
